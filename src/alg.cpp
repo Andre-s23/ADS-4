@@ -50,11 +50,9 @@ int countPairs3(int *arr, int len, int value) {
             if (arr[m] == val) res++;
         }
         m = otv;
-        while (arr[m] == val) {
-            m--;
+        while ((arr[m] == val) && (--m > i)) {
             if (arr[m] == val) res++;
         }
-    
     }
     if (res == 0) return 0;
     return res;

@@ -24,36 +24,36 @@ int countPairs2(int *arr, int len, int value) {
     return res;
 }
 int countPairs3(int *arr, int len, int value) {
-    int l = 0;
-    int r = 0;
-    int m = 0, otv = 0, res = 0, val = 0;
-    for (int i = 0; i < len - 1; i++) {
-        bool flag = false;
+    int res = 0;
+    int z, l, r, m;
+    for (int i = 0; i < len; i++) {
         l = i + 1;
         r = len - 1;
-        val = value - arr[i];
-        while ((l <= r) && (flag != true)) {
+        z = value - arr[i];
+        while (l <= r) {
             m = (l + r) / 2;
-            if (arr[m] == val) {
-                flag = true;
-                otv = m;
-                res++;
-            }
-            if (arr[m] > val) {
-                r = m - 1;
-            } else {
+            if (arr[m] < z) {
                 l = m + 1;
+            } else {
+                if (arr[m] > z) {
+                    r = m - 1;
+                } else {
+                    res++;
+                    int niz = m - 1;
+                    int verh = m + 1;
+                    while ((arr[m] == arr[niz]) && niz > i) {
+                        res++;
+                        niz--;
+                    }
+                    while ((arr[m] == arr[verh]) && verh > i) {
+                        res++;
+                        verh++;
+                    }
+                    break;
+                }
             }
-        }
-        while (arr[m] == val) {
-            m++;
-            if (arr[m] == val) res++;
-        }
-        m = otv;
-        while ((arr[m] == val) && (--m > i)) {
-            if (arr[m] == val) res++;
         }
     }
-    if (res == 0) return 0;
-    return res;
+    if (res != 0) return res;
+    return 0;
 }
